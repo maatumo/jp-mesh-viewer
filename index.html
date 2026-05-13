@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>標準地域メッシュコード ビューア</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin="">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside id="sidebar">
+    <h1>地域メッシュコード ビューア</h1>
+    <p class="hint">標準地域メッシュコード(4/6/8/9/10/11桁) を入力すると、対応する矩形を地図上に表示します。</p>
+
+    <form id="mesh-form">
+      <label for="mesh-input">メッシュコード</label>
+      <input id="mesh-input" type="text" inputmode="numeric" autocomplete="off"
+             placeholder="例: 5339-35-97" autofocus>
+      <button type="submit">表示</button>
+    </form>
+
+    <div id="error" hidden></div>
+    <div id="info" hidden></div>
+
+    <details>
+      <summary>メッシュ区分の対応</summary>
+      <ul>
+        <li>4桁 = 1次メッシュ (約 80km)</li>
+        <li>6桁 = 2次メッシュ (約 10km)</li>
+        <li>8桁 = 3次メッシュ (約 1km)</li>
+        <li>9桁 = 1/2地域メッシュ (約 500m)</li>
+        <li>10桁 = 1/4地域メッシュ (約 250m)</li>
+        <li>11桁 = 1/8地域メッシュ (約 125m)</li>
+      </ul>
+      <p class="hint">分割メッシュの末尾桁: 1=南西, 2=南東, 3=北西, 4=北東</p>
+    </details>
+
+    <details>
+      <summary>サンプル</summary>
+      <ul class="samples">
+        <li><button type="button" data-code="5339">5339 — 東京 1次</button></li>
+        <li><button type="button" data-code="533935">533935 — 東京中心部 2次</button></li>
+        <li><button type="button" data-code="53393599">53393599 — 千代田 3次</button></li>
+        <li><button type="button" data-code="533935992">533935992 — 1/2</button></li>
+      </ul>
+    </details>
+  </aside>
+
+  <main id="map"></main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+          crossorigin=""></script>
+  <script src="script.js"></script>
+  <script>
+    // サンプルボタン
+    document.querySelectorAll(".samples button").forEach((b) => {
+      b.addEventListener("click", () => {
+        const i = document.getElementById("mesh-input");
+        i.value = b.dataset.code;
+        document.getElementById("mesh-form").requestSubmit();
+      });
+    });
+  </script>
+</body>
+</html>
