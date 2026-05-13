@@ -9,7 +9,7 @@ html, body {
 
 body {
   display: grid;
-  grid-template-columns: 340px 1fr;
+  grid-template-columns: 360px 1fr;
   height: 100vh;
 }
 
@@ -32,33 +32,78 @@ body {
   line-height: 1.6;
 }
 
-#mesh-form {
+/* ----- Tabs ----- */
+.tabs {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #e3e8ee;
+}
+
+.tab {
+  flex: 1;
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  padding: 8px 4px;
+  font-size: 12px;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+.tab:hover { color: #1f2933; }
+
+.tab.active {
+  color: #2A7DE1;
+  border-bottom-color: #2A7DE1;
+  font-weight: 600;
+}
+
+.panel { margin-bottom: 16px; }
+
+/* ----- Form ----- */
+form {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
-#mesh-form label {
+form label {
   font-size: 12px;
   color: #4b5563;
 }
 
-#mesh-input {
-  font-size: 16px;
-  padding: 10px 12px;
+form input[type="text"],
+form input[type="number"],
+form select {
+  font-size: 15px;
+  padding: 9px 11px;
   border: 1px solid #cbd2d9;
   border-radius: 6px;
   font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  background: #fff;
 }
 
-#mesh-input:focus {
+form input:focus,
+form select:focus {
   outline: 2px solid #2A7DE1;
   outline-offset: -1px;
   border-color: #2A7DE1;
 }
 
-#mesh-form button {
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.row > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+form button[type="submit"] {
   padding: 10px;
   background: #2A7DE1;
   color: #fff;
@@ -67,12 +112,25 @@ body {
   font-size: 14px;
   cursor: pointer;
 }
+form button[type="submit"]:hover { background: #1f63b8; }
 
-#mesh-form button:hover {
-  background: #1f63b8;
+button.secondary {
+  padding: 8px;
+  background: #fff;
+  color: #2A7DE1;
+  border: 1px solid #2A7DE1;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+}
+button.secondary:hover { background: #f0f6ff; }
+button.secondary.picking {
+  background: #2A7DE1;
+  color: #fff;
 }
 
-#error {
+/* ----- Result / error blocks ----- */
+.error {
   background: #fdecea;
   color: #b71c1c;
   padding: 10px 12px;
@@ -81,33 +139,85 @@ body {
   margin-bottom: 12px;
 }
 
-#info {
+.info-block {
   background: #fff;
   border: 1px solid #e3e8ee;
   border-radius: 6px;
   padding: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
-#info dl {
+.info-block dl {
   display: grid;
-  grid-template-columns: 60px 1fr;
+  grid-template-columns: 90px 1fr;
   gap: 4px 12px;
   margin: 0;
   font-size: 13px;
 }
 
-#info dt {
+.info-block dt {
   color: #6b7280;
   font-weight: normal;
 }
 
-#info dd {
+.info-block dd {
   margin: 0;
   font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   color: #1f2933;
+  overflow-wrap: anywhere;
 }
 
+.result {
+  margin-bottom: 12px;
+}
+
+#radius-result p {
+  margin: 0 0 8px;
+  font-size: 13px;
+}
+
+#radius-csv {
+  padding: 6px 10px;
+  background: #fff;
+  border: 1px solid #2AB37D;
+  color: #2AB37D;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+#radius-csv:hover { background: #e8f5ef; }
+
+.mesh-list {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+  max-height: 320px;
+  overflow-y: auto;
+  border: 1px solid #e3e8ee;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.mesh-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 10px;
+  font-size: 12px;
+  border-bottom: 1px solid #f0f3f7;
+}
+.mesh-list li:last-child { border-bottom: 0; }
+
+.mesh-list code {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+.mesh-list .dist {
+  color: #6b7280;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+/* ----- Details ----- */
 details {
   margin-bottom: 12px;
   font-size: 13px;
@@ -132,9 +242,7 @@ details ul {
   margin: 8px 0;
 }
 
-.samples li {
-  margin: 4px 0;
-}
+.samples li { margin: 4px 0; }
 
 .samples button {
   width: 100%;
@@ -153,9 +261,7 @@ details ul {
   border-color: #2A7DE1;
 }
 
-#map {
-  height: 100%;
-}
+#map { height: 100%; }
 
 @media (max-width: 720px) {
   body {
@@ -163,7 +269,7 @@ details ul {
     grid-template-rows: auto 1fr;
   }
   #sidebar {
-    max-height: 50vh;
+    max-height: 55vh;
     border-right: 0;
     border-bottom: 1px solid #e3e8ee;
   }
