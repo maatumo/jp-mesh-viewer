@@ -22,7 +22,34 @@ body {
 
 #sidebar h1 {
   font-size: 18px;
-  margin: 0 0 8px;
+  margin: 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.lang-toggle {
+  background: #fff;
+  border: 1px solid #cbd2d9;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 11px;
+  color: #4b5563;
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.lang-toggle:hover {
+  background: #f0f6ff;
+  border-color: #2A7DE1;
+  color: #2A7DE1;
 }
 
 .hint {

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>地域メッシュビューア</title>
+  <title data-i18n="title">地域メッシュビューア</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
         crossorigin="">
@@ -11,33 +11,36 @@
 </head>
 <body>
   <aside id="sidebar">
-    <h1>地域メッシュビューア</h1>
-    <p class="hint">標準地域メッシュコード (JIS X 0410) を地図と相互変換するツール</p>
+    <div class="header">
+      <h1 data-i18n="title">地域メッシュビューア</h1>
+      <button id="lang-toggle" type="button" class="lang-toggle">EN</button>
+    </div>
+    <p class="hint" data-i18n="subtitle">標準地域メッシュコード (JIS X 0410) を地図と相互変換するツール</p>
 
     <nav class="tabs">
-      <button class="tab active" data-tab="forward">メッシュ→地図</button>
-      <button class="tab" data-tab="reverse">座標→メッシュ</button>
-      <button class="tab" data-tab="radius">範囲列挙</button>
+      <button class="tab active" data-tab="forward" data-i18n="tab_forward">メッシュ→地図</button>
+      <button class="tab" data-tab="reverse" data-i18n="tab_reverse">座標→メッシュ</button>
+      <button class="tab" data-tab="radius" data-i18n="tab_radius">範囲列挙</button>
     </nav>
 
     <!-- Tab 1: メッシュ→地図 -->
     <section class="panel" data-panel="forward">
       <form id="forward-form">
-        <label for="forward-input">メッシュコード (4/6/8/9/10/11桁)</label>
+        <label for="forward-input" data-i18n="forward_label">メッシュコード (4/6/8/9/10/11桁)</label>
         <input id="forward-input" type="text" inputmode="numeric" autocomplete="off"
-               placeholder="例: 53394611" autofocus>
-        <button type="submit">表示</button>
+               data-i18n-placeholder="forward_placeholder" placeholder="例: 53394611" autofocus>
+        <button type="submit" data-i18n="forward_submit">表示</button>
       </form>
       <div class="error" id="forward-error" hidden></div>
       <div class="result info-block" id="forward-result" hidden></div>
 
       <details>
-        <summary>サンプル</summary>
+        <summary data-i18n="samples_summary">サンプル</summary>
         <ul class="samples">
-          <li><button type="button" data-code="5339">5339 — 東京 1次</button></li>
-          <li><button type="button" data-code="533945">533945 — 東京中心 2次</button></li>
-          <li><button type="button" data-code="53394611">53394611 — 東京駅 3次</button></li>
-          <li><button type="button" data-code="533946114">533946114 — 1/2</button></li>
+          <li><button type="button" data-code="5339" data-i18n="sample_5339">5339 — 東京 1次</button></li>
+          <li><button type="button" data-code="533945" data-i18n="sample_533945">533945 — 東京中心 2次</button></li>
+          <li><button type="button" data-code="53394611" data-i18n="sample_53394611">53394611 — 東京駅 3次</button></li>
+          <li><button type="button" data-code="533946114" data-i18n="sample_533946114">533946114 — 1/2</button></li>
         </ul>
       </details>
     </section>
@@ -47,28 +50,28 @@
       <form id="reverse-form">
         <div class="row">
           <div>
-            <label for="reverse-lat">緯度</label>
+            <label for="reverse-lat" data-i18n="reverse_lat">緯度</label>
             <input id="reverse-lat" type="number" step="any" placeholder="35.6809">
           </div>
           <div>
-            <label for="reverse-lng">経度</label>
+            <label for="reverse-lng" data-i18n="reverse_lng">経度</label>
             <input id="reverse-lng" type="number" step="any" placeholder="139.7673">
           </div>
         </div>
         <button type="button" class="pick-btn secondary"
-                data-lat="reverse-lat" data-lng="reverse-lng">地図クリックで取得</button>
+                data-lat="reverse-lat" data-lng="reverse-lng" data-i18n="pick_btn">地図クリックで取得</button>
 
-        <label for="reverse-level">メッシュレベル</label>
+        <label for="reverse-level" data-i18n="reverse_level">メッシュレベル</label>
         <select id="reverse-level">
-          <option value="4">1次メッシュ (約80km)</option>
-          <option value="6">2次メッシュ (約10km)</option>
-          <option value="8" selected>3次メッシュ (約1km)</option>
-          <option value="9">1/2地域メッシュ (約500m)</option>
-          <option value="10">1/4地域メッシュ (約250m)</option>
-          <option value="11">1/8地域メッシュ (約125m)</option>
+          <option value="4" data-i18n="lvl_4">1次メッシュ (約80km)</option>
+          <option value="6" data-i18n="lvl_6">2次メッシュ (約10km)</option>
+          <option value="8" selected data-i18n="lvl_8">3次メッシュ (約1km)</option>
+          <option value="9" data-i18n="lvl_9">1/2地域メッシュ (約500m)</option>
+          <option value="10" data-i18n="lvl_10">1/4地域メッシュ (約250m)</option>
+          <option value="11" data-i18n="lvl_11">1/8地域メッシュ (約125m)</option>
         </select>
 
-        <button type="submit">変換</button>
+        <button type="submit" data-i18n="reverse_submit">変換</button>
       </form>
       <div class="error" id="reverse-error" hidden></div>
       <div class="result info-block" id="reverse-result" hidden></div>
@@ -79,47 +82,47 @@
       <form id="radius-form">
         <div class="row">
           <div>
-            <label for="radius-lat">中心 緯度</label>
+            <label for="radius-lat" data-i18n="radius_lat">中心 緯度</label>
             <input id="radius-lat" type="number" step="any" placeholder="35.6809">
           </div>
           <div>
-            <label for="radius-lng">中心 経度</label>
+            <label for="radius-lng" data-i18n="radius_lng">中心 経度</label>
             <input id="radius-lng" type="number" step="any" placeholder="139.7673">
           </div>
         </div>
         <button type="button" class="pick-btn secondary"
-                data-lat="radius-lat" data-lng="radius-lng">地図クリックで取得</button>
+                data-lat="radius-lat" data-lng="radius-lng" data-i18n="pick_btn">地図クリックで取得</button>
 
-        <label for="radius-km">半径 (km)</label>
+        <label for="radius-km" data-i18n="radius_km">半径 (km)</label>
         <input id="radius-km" type="number" step="0.1" min="0.1" value="5">
 
-        <label for="radius-level">メッシュレベル</label>
+        <label for="radius-level" data-i18n="radius_level">メッシュレベル</label>
         <select id="radius-level">
-          <option value="6">2次メッシュ (約10km)</option>
-          <option value="8" selected>3次メッシュ (約1km)</option>
-          <option value="9">1/2地域メッシュ (約500m)</option>
-          <option value="10">1/4地域メッシュ (約250m)</option>
-          <option value="11">1/8地域メッシュ (約125m)</option>
+          <option value="6" data-i18n="lvl_6">2次メッシュ (約10km)</option>
+          <option value="8" selected data-i18n="lvl_8">3次メッシュ (約1km)</option>
+          <option value="9" data-i18n="lvl_9">1/2地域メッシュ (約500m)</option>
+          <option value="10" data-i18n="lvl_10">1/4地域メッシュ (約250m)</option>
+          <option value="11" data-i18n="lvl_11">1/8地域メッシュ (約125m)</option>
         </select>
 
-        <button type="submit">列挙</button>
+        <button type="submit" data-i18n="radius_submit">列挙</button>
       </form>
       <div class="error" id="radius-error" hidden></div>
       <div class="result" id="radius-result" hidden></div>
-      <p class="hint">内包条件: メッシュ中心が円内</p>
+      <p class="hint" data-i18n="radius_hint">内包条件: メッシュ中心が円内</p>
     </section>
 
     <details class="legend">
-      <summary>メッシュ区分の対応</summary>
+      <summary data-i18n="legend_summary">メッシュ区分の対応</summary>
       <ul>
-        <li>4桁 = 1次メッシュ (約 80km)</li>
-        <li>6桁 = 2次メッシュ (約 10km)</li>
-        <li>8桁 = 3次メッシュ (約 1km)</li>
-        <li>9桁 = 1/2地域メッシュ (約 500m)</li>
-        <li>10桁 = 1/4地域メッシュ (約 250m)</li>
-        <li>11桁 = 1/8地域メッシュ (約 125m)</li>
+        <li data-i18n="legend_4">4桁 = 1次メッシュ (約 80km)</li>
+        <li data-i18n="legend_6">6桁 = 2次メッシュ (約 10km)</li>
+        <li data-i18n="legend_8">8桁 = 3次メッシュ (約 1km)</li>
+        <li data-i18n="legend_9">9桁 = 1/2地域メッシュ (約 500m)</li>
+        <li data-i18n="legend_10">10桁 = 1/4地域メッシュ (約 250m)</li>
+        <li data-i18n="legend_11">11桁 = 1/8地域メッシュ (約 125m)</li>
       </ul>
-      <p class="hint">分割メッシュの末尾桁: 1=南西, 2=南東, 3=北西, 4=北東</p>
+      <p class="hint" data-i18n="legend_quadrant">分割メッシュの末尾桁: 1=南西, 2=南東, 3=北西, 4=北東</p>
     </details>
   </aside>
 
